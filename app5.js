@@ -2,8 +2,7 @@
 // import mongoose from 'mongoose'
 // import routerArticles from './routes/articles.js'
 // import routerLogin from './routes/login.js'
-const routerArticles = require('./routes/articles.js')
-const routerLogin = require('./routes/login.js')
+// const routerArticles = require('./routes/articles.js')
 // import cookieParser from 'cookie-parser';
 // import session from 'express-session'
 const express = require('express');
@@ -37,10 +36,12 @@ mongoose.connect(`mongodb://${db.host}/${db.name}`, db.opts);
 app.use(express.static('public'));
 // app.use(cookieParser());
 app.set('view engine', 'ejs');
-app.use('/articles', routerArticles);
-app.use('/login', routerLogin);
+// app.use('/articles', routerArticles);
 
 const Items = require('./routes/item.js')
 app.use('/items', Items)
+const Users = require('./routes/user.js')
+app.use('/users', Users)
+
 console.log("Server started");
 app.listen(3000)
