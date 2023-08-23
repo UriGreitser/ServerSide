@@ -1,29 +1,28 @@
 const mongoose = require("mongoose");
+const { ItemSchema } = require("./item");
 
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    _id: Schema.Types.UUID,
-    Username: {
+    //generate id automatically
+    //  _id: mongoose.Schema.Types.ObjectId,
+    username: {
       type: String,
       required: [true, "can't be blank"],
     },
-
-    Password: {
+    password: {
       type: String,
-      ref: "User",
-    },
-    items: {
-      type: [Schema.Types.ObjectId],
-      ref: "Item",
-    },
-    total: {
-      type: Number,
       required: [true, "can't be blank"],
     },
-  },
-  { timestamps: true }
+    isManager: {
+      type: Boolean,
+      default: false,
+    },
+    items: [{ type: Schema.Types.ObjectId, ref: "Item" }], // Need to change to purchase.
+  }
 );
 
-module.exports = PurchaseSchema;
+const User = mongoose.model("User", UserSchema);
+
+module.exports = { User };
