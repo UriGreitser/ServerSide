@@ -42,6 +42,9 @@ const Items = require('./routes/item.js')
 app.use('/items', Items)
 const Users = require('./routes/user.js')
 app.use('/users', Users)
+const Purchases = require('./routes/purchase.js')
+app.use('/purchases', Purchases)
+
 
 console.log("Server started");
 app.listen(3000)
