@@ -6,6 +6,15 @@ const createItem = async (title, description, price, img) => {
   return item1;
 };
 
+const getItemById = async (_id) => {
+  try {
+    const item = await Item.findOne({ _id }); // Find an item by id using the appropriate method
+    return item;
+  } catch (err) {
+    throw new Error(`Error while retrieving item by id: ${err.message}`);
+  }
+};
+
 const getItemByTitle = async (title) => {
   try {
     const item = await Item.findOne({ title }); // Find an item by title using the appropriate method
@@ -59,6 +68,7 @@ const getItemsByPriceRange = async (minPrice, maxPrice) => {
 
 module.exports = {
   createItem,
+  getItemById,
   getItemByTitle,
   updateItemByTitle,
   deleteItemByTitle,
