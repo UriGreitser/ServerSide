@@ -33,12 +33,19 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 // app.use('/articles', routerArticles);
 
-const Items = require("./routes/item.js");
-app.use("/items", Items);
-const Users = require("./routes/user.js");
-app.use("/users", Users);
-const Purchase = require("./routes/purchase.js");
-app.use("/purchase", Purchase);
+const Items = require('./routes/item.js')
+app.use('/items', Items)
+const Users = require('./routes/user.js')
+app.use('/users', Users)
+const Purchases = require('./routes/purchase.js')
+app.use('/purchases', Purchases)
+
+// const Items = require("./routes/item.js");
+// app.use("/items", Items);
+// const Users = require("./routes/user.js");
+// app.use("/users", Users);
+// const Purchase = require("./routes/purchase.js");
+// app.use("/purchase", Purchase);
 
 console.log("Server started");
 app.listen(3000);

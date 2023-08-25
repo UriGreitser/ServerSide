@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 const PurchaseSchema = new Schema(
   {
-    _id: Schema.Types.UUID,
     purchaseDate: {
       type: Date,
       required: [true, "can't be blank"],
+      default: Date.now,
     },
     buyer: {
       type: Schema.Types.ObjectId,
