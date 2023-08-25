@@ -67,6 +67,19 @@ router.get("/cart/:username", userController.getUserCart);
 
 /**
  * @swagger
+ * /user/cart/:
+ *   post:
+ *     summary: Add item to user's cart
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.post("/cart", userController.addToUserCart);
+
+/**
+ * @swagger
  * /user/count:
  *   get:
  *     summary: Get the number of users

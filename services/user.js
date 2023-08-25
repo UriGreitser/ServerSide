@@ -55,6 +55,20 @@ async function getUserCart(username) {
   return userCart;
 }
 
+async function addToUserCart(username, itemId) {
+  try {
+    const user = await User.findOne({ username });
+    userCart = user.cart;
+    itemObjectId = new mongoose.Types.ObjectId(itemId);
+    userCart.push(itemObjectId);
+    user.save();
+
+    return userCart;
+  } catch (error) {
+    throw new Error("An error occurred while adding item to the user's cart");
+  }
+}
+
 async function getUserCount() {
   const userCount = await User.countDocuments();
 
@@ -68,5 +82,6 @@ module.exports = {
   changePassword,
   deleteUser,
   getUserCart,
+  addToUserCart,
   getUserCount,
 };
