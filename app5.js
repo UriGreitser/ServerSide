@@ -39,6 +39,8 @@ const Users = require("./routes/user.js");
 app.use("/users", Users);
 const Purchase = require("./routes/purchase.js");
 app.use("/purchase", Purchase);
+const StoreLocation = require("./routes/storeLocation.js");
+app.use("/storeLocation", StoreLocation);
 
 console.log("Server started");
 app.listen(3000);
