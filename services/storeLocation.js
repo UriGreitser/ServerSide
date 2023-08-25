@@ -3,7 +3,7 @@ const { StoreLocation } = require("../models/storeLocation");
 // StoreLocationSchema CRUD
 
 // Get all
-const getStoreLocations = async () => {
+const getAllStoreLocations = async () => {
   try {
     const storeLocations = await StoreLocation.find();
     return storeLocations;
@@ -13,5 +13,5 @@ const getStoreLocations = async () => {
 };
 
 module.exports = {
-  getStoreLocations,
+  getAllStoreLocations,
 };
