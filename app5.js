@@ -34,9 +34,9 @@ app.set("view engine", "ejs");
 // app.use('/articles', routerArticles);
 
 const Items = require("./routes/item.js");
-app.use("/items", Items);
+app.use("/item", Items);
 const Users = require("./routes/user.js");
-app.use("/users", Users);
+app.use("/user", Users);
 const Purchase = require("./routes/purchase.js");
 app.use("/purchase", Purchase);
 const StoreLocation = require("./routes/storeLocation.js");

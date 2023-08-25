@@ -29,7 +29,7 @@ router.post("/", itemController.createItem);
 router.get("/", itemController.getAllItems);
 /**
  * @swagger
- * /item/:id:
+ * /items/:id:
  *   get:
  *     summary: Get item by id
  *     responses:
