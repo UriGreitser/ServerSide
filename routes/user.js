@@ -52,4 +52,17 @@ router.put("/change-password", userController.changePassword);
  */
 router.delete("/delete", userController.deleteUser);
 
+/**
+ * @swagger
+ * /user/cart:
+ *   get:
+ *     summary: Get cart by user
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.get("/cart/:username", userController.getUserCart);
+
 module.exports = router;
