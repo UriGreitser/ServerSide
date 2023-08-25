@@ -42,5 +42,6 @@ app.use("/purchase", Purchase);
 const StoreLocation = require("./routes/storeLocation.js");
 app.use("/storeLocation", StoreLocation);
 
+
 console.log("Server started");
 app.listen(3000);

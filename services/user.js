@@ -2,7 +2,9 @@ const {User} = require('../models/user');
 
 async function createUser(username, password, isManager) {
     try {
+      id = username
       const newUser = new User({
+        _id: username,
         username,
         password,
         isManager
@@ -18,11 +20,21 @@ async function createUser(username, password, isManager) {
   
 
   const createUsers = async (username,password,isManager) => {
-    const item1 = new User({username,password, isManager});
-    await item1.save();
-    return item1;
-}
-
+    try {
+      const newUser = new User({
+        _id: username,
+        username,
+        password,
+        isManager,
+      });
+  
+      await newUser.save();
+  
+      return newUser;
+    } catch (error) {
+      throw new Error('An error occurred while creating the user');
+    }
+  };
   
   async function findUserByUsername(username) {
     return User.findOne({ username });
