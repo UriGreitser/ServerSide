@@ -77,10 +77,23 @@ const getUserCart = async (req, res) => {
   }
 };
 
+const getUserCount = async (req, res) => {
+  try {
+    const userCount = await userService.getUserCount();
+    res.json(userCount);
+  } catch (error) {
+    console.error(`Error while getting user's number`, error.message);
+    res
+      .status(500)
+      .json({ error: "An error occurred while getting user's number" });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
   changePassword,
   deleteUser,
   getUserCart,
+  getUserCount,
 };

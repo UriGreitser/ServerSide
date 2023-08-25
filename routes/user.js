@@ -54,7 +54,7 @@ router.delete("/delete", userController.deleteUser);
 
 /**
  * @swagger
- * /user/cart:
+ * /user/cart/:username:
  *   get:
  *     summary: Get cart by user
  *     responses:
@@ -64,5 +64,18 @@ router.delete("/delete", userController.deleteUser);
  *       - User
  */
 router.get("/cart/:username", userController.getUserCart);
+
+/**
+ * @swagger
+ * /user/count:
+ *   get:
+ *     summary: Get the number of users
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.get("/count", userController.getUserCount);
 
 module.exports = router;

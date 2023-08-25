@@ -55,6 +55,12 @@ async function getUserCart(username) {
   return userCart;
 }
 
+async function getUserCount() {
+  const userCount = await User.countDocuments();
+
+  return userCount;
+}
+
 module.exports = {
   createUser,
   findUserByUsername,
@@ -62,4 +68,5 @@ module.exports = {
   changePassword,
   deleteUser,
   getUserCart,
+  getUserCount,
 };
