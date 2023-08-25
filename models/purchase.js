@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 const PurchaseSchema = new Schema(
   {
-    _id: Schema.Types.UUID,
     purchaseDate: {
       type: Date,
       required: [true, "can't be blank"],
+      default: Date.now,
     },
     buyer: {
       type: Schema.Types.ObjectId,
@@ -25,4 +25,6 @@ const PurchaseSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = PurchaseSchema;
+const Purchase = mongoose.model("Purchase", PurchaseSchema);
+
+module.exports = { Purchase };

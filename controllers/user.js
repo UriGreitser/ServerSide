@@ -1,8 +1,11 @@
 const userService = require('../services/user.js')
 
+// not in use!
 async function createUser(req, res) {
     try {
       const { username, password, isManager } = req.body;
+      console.log(req.body)
+      console.log("TRY")
   
       const newUser = await userService.createUser(username, password, isManager);
   
@@ -15,13 +18,15 @@ async function createUser(req, res) {
 
   //post request - create item
 const createUsers= async (req, res) => {
-    try {
-        res.json(await userService.createUsers(req.body.username, req.body.password, req.body.isManager));
-    } catch (err) {
-        console.error(`Error while creating item`, err.message);
-    }
-}
-
+  try {
+    const { username, password, isManager } = req.body;
+    const newUser = await userService.createUser(username, password, isManager);
+    res.json(newUser);
+  } catch (err) {
+    console.error(`Error while creating user`, err.message);
+    res.status(500).json({ error: 'An error occurred while creating the user' });
+  }
+};
 //check if user exists
 const loginUser = async (req, res) => {
     try {
