@@ -20,6 +20,10 @@ const options = {
         name: "Item",
         description: "API for managing items",
       },
+      {
+        name: "StoreLocation",
+        description: "API for presenting store locations on the map",
+      },
     ],
   },
   // Path to the API docs
