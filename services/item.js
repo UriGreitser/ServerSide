@@ -1,19 +1,35 @@
 const { Item } = require("../models/item");
 
-const createItem = async (title, description, price, img) => {
-  const item1 = new Item({ title, description, price, img });
-  await item1.save();
-  return item1;
-};
 
+//shani
 const getItemById = async (_id) => {
-  try {
-    const item = await Item.findOne({ _id }); // Find an item by id using the appropriate method
-    return item;
-  } catch (err) {
-    throw new Error(`Error while retrieving item by id: ${err.message}`);
-  }
-};
+    try {
+      const item = await Item.findOne({ _id }); // Find an item by id using the appropriate method
+      return item;
+    } catch (err) {
+      throw new Error(`Error while retrieving item by id: ${err.message}`);
+    }
+  };
+
+const createItem = async (title,description, price, img) => {
+    const item1 = new Item({title,description, price, img});
+    await item1.save();
+    return item1;
+}
+// const createItem = async (title, description, price, img) => {
+//   const item1 = new Item({ title, description, price, img });
+//   await item1.save();
+//   return item1;
+// };
+
+// const getItemById = async (_id) => {
+//   try {
+//     const item = await Item.findOne({ _id }); // Find an item by id using the appropriate method
+//     return item;
+//   } catch (err) {
+//     throw new Error(`Error while retrieving item by id: ${err.message}`);
+//   }
+// };
 
 const getItemByTitle = async (title) => {
   try {
@@ -66,6 +82,17 @@ const getItemsByPriceRange = async (minPrice, maxPrice) => {
   }
 };
 
+const getItemsByIds = async (itemIds) => {
+    try {
+      const items = await Item.find({ _id: { $in: itemIds } });
+      return items;
+    } catch (error) {
+      throw new Error("Error fetching items: " + error.message);
+    }
+  };
+  
+
+module.exports = {createItem, getItemByTitle,updateItemByTitle,deleteItemByTitle,getAllItems,getItemsByPriceRange,getItemsByIds,getItemById}
 module.exports = {
   createItem,
   getItemById,
