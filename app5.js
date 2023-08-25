@@ -2,8 +2,14 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger"); // Path to your swagger.js configuration
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Use Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const cors = require("cors");
 app.use(cors());
@@ -31,6 +37,8 @@ const Items = require("./routes/item.js");
 app.use("/items", Items);
 const Users = require("./routes/user.js");
 app.use("/users", Users);
+const Purchase = require("./routes/purchase.js");
+app.use("/purchase", Purchase);
 
 console.log("Server started");
 app.listen(3000);
