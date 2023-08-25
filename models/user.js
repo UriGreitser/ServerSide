@@ -7,7 +7,6 @@ const UserSchema = new Schema({
   //generate id automatically
   //  _id: mongoose.Schema.Types.ObjectId,
   _id: {
-    // Use the username as the _id
     type: mongoose.Types.ObjectId,
     required: [true, "can't be blank"],
   },

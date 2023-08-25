@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { User } = require("../models/user");
 
 async function createUser(username, password, isManager) {
@@ -21,7 +22,7 @@ async function createUser(username, password, isManager) {
 const createUsers = async (username, password, isManager) => {
   try {
     const newUser = new User({
-      _id: username,
+      _id: new mongoose.Types.ObjectId(),
       username,
       password,
       isManager,
