@@ -38,7 +38,7 @@ router.get("/", itemController.getAllItems);
  *     tags:
  *       - Item
  */
-router.get("/:id", itemController.getItemById);
+router.get("/:title", itemController.getItemByTitle);
 /**
  * @swagger
  * /item/title/:title:
