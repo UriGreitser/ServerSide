@@ -77,6 +77,19 @@ const getUserCart = async (req, res) => {
   }
 };
 
+const addToUserCart = async (req, res) => {
+  try {
+    const { username, itemId } = req.body;
+    const userCart = await userService.addToUserCart(username, itemId);
+    res.json(userCart);
+  } catch (error) {
+    console.error(`Error while getting user's cart`, error.message);
+    res
+      .status(500)
+      .json({ error: "An error occurred while getting user's cart" });
+  }
+};
+
 const getUserCount = async (req, res) => {
   try {
     const userCount = await userService.getUserCount();
@@ -95,5 +108,6 @@ module.exports = {
   changePassword,
   deleteUser,
   getUserCart,
+  addToUserCart,
   getUserCount,
 };
