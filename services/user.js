@@ -1,25 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const { User } = require("../models/user");
 
-async function createUser(username, password, isManager) {
-  try {
-    id = username;
-    const newUser = new User({
-      _id: username,
-      username,
-      password,
-      isManager,
-    });
-
-    await newUser.save();
-
-    return newUser;
-  } catch (error) {
-    throw new Error("An error occurred while creating the user");
-  }
-}
-
-const createUsers = async (username, password, isManager) => {
+const createUser = async (username, password, isManager) => {
   try {
     const newUser = new User({
       _id: new mongoose.Types.ObjectId(),
@@ -75,7 +57,6 @@ async function getUserCart(username) {
 
 module.exports = {
   createUser,
-  createUsers,
   findUserByUsername,
   verifyPassword,
   changePassword,

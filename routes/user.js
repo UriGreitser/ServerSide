@@ -14,7 +14,7 @@ const router = express.Router();
  *     tags:
  *       - User
  */
-router.post("/", userController.createUsers);
+router.post("/", userController.createUser);
 /**
  * @swagger
  * /user/login/:
