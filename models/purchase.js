@@ -4,7 +4,11 @@ const { Schema } = mongoose;
 
 const PurchaseSchema = new Schema(
   {
-    _id: Schema.Types.UUID,
+
+    _id: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "can't be blank"],
+    },
     purchaseDate: {
       type: Date,
       required: [true, "can't be blank"],
@@ -25,4 +29,7 @@ const PurchaseSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = PurchaseSchema;
+const Purchase = mongoose.model("Purchase", PurchaseSchema);
+
+module.exports = { Purchase };
+

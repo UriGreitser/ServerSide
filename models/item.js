@@ -4,6 +4,11 @@ const { Schema } = mongoose;
 
 const ItemSchema = new Schema(
   {
+    _id: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "can't be blank"],
+    },
+  
     title: {
       type: String,
       required: [true, "can't be blank"],
@@ -20,6 +25,11 @@ const ItemSchema = new Schema(
       type: String,
       required: [true, "can't be blank"],
     },
+    stock: {
+      type: Number,
+      required: [true, "can't be blank"],
+      default: 0,
+    }
   },
   // { timestamps: true }
 );
