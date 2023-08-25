@@ -1,16 +1,40 @@
 const purchaseService = require('../services/purchase.js')
+const { User } = require("./user");
+const { Item } = require("./item");
+const userService = require('../services/user.js')
+const itemService = require('../services/item.js')
 
-//post request - create item
-async function createPurchase(req, res) {
+
+
+const createPurchase = async (req, res) => {
   try {
-    const { purchaseDate, buyer, items, total } = req.body;
+    const { username, itemIds, totalAmount } = req.body;
 
-    const newPurchase = await purchaseService.createPurchase({ purchaseDate, buyer, items, total });
+    const buyer = await userService.findUserByUsername(username) // Find the buyer by username
+    console.log("NIGHT")
+    console.log(buyer)
+    if (!buyer) {
+      return res.status(404).json({ error: "Buyer not found" });
+    }
+    console.log(buyer)
 
-    res.status(201).json(newPurchase);
+    const items = await itemService.getItemsByIds(itemIds);
+    if (items.length !== itemIds.length) {
+      return res.status(404).json({ error: "Some items not found" });
+    }
+    console.log("TEST 11 ")
+
+    const purchaseData = {
+      purchaseDate: new Date(),
+      buyer: buyer.username, // Use the ObjectId of the buyer
+      items: itemIds,
+      total: totalAmount,
+    };
+console.log("TEST 1 ")
+    const createdPurchase = await purchaseService.createPurchase(purchaseData,buyer);
+    return res.status(201).json(createdPurchase);
   } catch (error) {
-    console.error('Error creating purchase:', error);
-    res.status(500).json({ error: 'An error occurred while creating the purchase' });
+    return res.status(500).json({ error: error.message });
   }
-}
+};
 module.exports = {createPurchase}
