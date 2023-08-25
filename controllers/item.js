@@ -8,7 +8,8 @@ const createItem = async (req, res) => {
         req.body.title,
         req.body.description,
         req.body.price,
-        req.body.img
+        req.body.img,
+        req.body.stock
       )
     );
   } catch (err) {
@@ -16,6 +17,7 @@ const createItem = async (req, res) => {
   }
 };
 
+//not in use
 const getItemById = async (req, res) => {
   try {
     const itemId = req.params.id; // Assuming you're passing the item ID as a parameter in the URL
@@ -33,8 +35,13 @@ const getItemById = async (req, res) => {
 //get request - get by title.
 const getItemByTitle = async (req, res) => {
   try {
+    console.log(req.params)
+    console.log(req.params.title)
+    console.log(req.title)
     const itemTitle = req.params.title;
+    console.log(itemTitle);
     const item = await itemService.getItemByTitle(itemTitle);
+    console.log(item);
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }

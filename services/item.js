@@ -11,8 +11,9 @@ const getItemById = async (_id) => {
     }
   };
 
-const createItem = async (title,description, price, img) => {
-    const item1 = new Item({title,description, price, img});
+const createItem = async (title,description, price, img,stock) => {
+    const item1 = new Item({title,description, price, img,stock});
+    // item1._id = title
     await item1.save();
     return item1;
 }
@@ -33,6 +34,7 @@ const createItem = async (title,description, price, img) => {
 
 const getItemByTitle = async (title) => {
   try {
+    console.log(title)
     const item = await Item.findOne({ title }); // Find an item by title using the appropriate method
     return item;
   } catch (err) {
