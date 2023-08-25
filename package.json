@@ -21,6 +21,7 @@
     "express-session": "^1.17.3",
     "mongodb": "^5.8.0",
     "mongoose": "^7.4.4",
+    "swagger": "^0.7.5",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   }
