@@ -3,6 +3,7 @@ const itemService = require("../services/item.js");
 //post request - create item
 const createItem = async (req, res) => {
   try {
+    console.log("TESTING")
     res.json(
       await itemService.createItem(
         req.body.title,
