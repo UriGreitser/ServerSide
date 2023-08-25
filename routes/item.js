@@ -1,14 +1,91 @@
-const express = require('express');
-const itemController = require('../controllers/item.js');
-
+const express = require("express");
+const itemController = require("../controllers/item.js");
 
 const router = express.Router();
 
-router.post('/', itemController.createItem);
-router.get('/',itemController.getAllItems)
-router.get('/:id', itemController.getItem);
-router.put('/:title', itemController.updateItemByTitle);
-router.delete('/:title', itemController.deleteItemByTitle);
-router.get('/price/:min/:max', itemController.getItemsByPriceRange);
+/**
+ * @swagger
+ * /item/:
+ *   post:
+ *     summary: Create item
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.post("/", itemController.createItem);
+/**
+ * @swagger
+ * /item/:
+ *   get:
+ *     summary: Get all items
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/", itemController.getAllItems);
+/**
+ * @swagger
+ * /item/:id:
+ *   get:
+ *     summary: Get item by id
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/:id", itemController.getItemById);
+/**
+ * @swagger
+ * /item/title/:title:
+ *   get:
+ *     summary: Get item by title
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/title/:title", itemController.getItemByTitle);
+/**
+ * @swagger
+ * /item/:title:
+ *   put:
+ *     summary: Update item by title
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.put("/:title", itemController.updateItemByTitle);
+/**
+ * @swagger
+ * /item/:title:
+ *   delete:
+ *     summary: Delete item by title
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.delete("/:title", itemController.deleteItemByTitle);
+/**
+ * @swagger
+ * /item/price/:min/:max:
+ *   get:
+ *     summary: Get Item by price range
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/price/:min/:max", itemController.getItemsByPriceRange);
 
-module.exports= router  
+module.exports = router;

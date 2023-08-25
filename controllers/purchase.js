@@ -1,40 +1,70 @@
-const purchaseService = require('../services/purchase.js')
-const { User } = require("./user");
-const { Item } = require("./item");
-const userService = require('../services/user.js')
-const itemService = require('../services/item.js')
+const purchaseService = require("../services/purchase.js");
 
+// Purchase Controller
 
-
+// Create purchase
 const createPurchase = async (req, res) => {
   try {
-    const { username, itemIds, totalAmount } = req.body;
-
-    const buyer = await userService.findUserByUsername(username) // Find the buyer by username
-    console.log("NIGHT")
-    console.log(buyer)
-    if (!buyer) {
-      return res.status(404).json({ error: "Buyer not found" });
-    }
-    console.log(buyer)
-
-    const items = await itemService.getItemsByIds(itemIds);
-    if (items.length !== itemIds.length) {
-      return res.status(404).json({ error: "Some items not found" });
-    }
-    console.log("TEST 11 ")
-
-    const purchaseData = {
-      purchaseDate: new Date(),
-      buyer: buyer.username, // Use the ObjectId of the buyer
-      items: itemIds,
-      total: totalAmount,
-    };
-console.log("TEST 1 ")
-    const createdPurchase = await purchaseService.createPurchase(purchaseData,buyer);
-    return res.status(201).json(createdPurchase);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+    res.json(
+      await purchaseService.createPurchase(
+        req.body.title,
+        req.body.buyer,
+        req.body.items,
+        req.body.total
+      )
+    );
+  } catch (err) {
+    console.error(`Error while creating purchase`, err.message);
   }
 };
-module.exports = {createPurchase}
+
+// Get purchase by id
+const getPurchaseById = async (req, res) => {
+  try {
+    const purchaseId = req.params.id; // Assuming you're passing the item ID as a parameter in the URL
+    const purchase = await purchaseService.getPurchaseById(purchaseId);
+    if (!purchase) {
+      return res.status(404).json({ message: "Purchase not found" });
+    }
+    res.json(purchase);
+  } catch (err) {
+    console.error(`Error while getting purchase`, err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Get all purchases
+const getAllPurchases = async (req, res) => {
+  try {
+    const purchases = await purchaseService.getAllPurchases();
+    if (!purchases) {
+      return res.status(404).json({ message: "Purchases not found" });
+    }
+    res.json(purchases);
+  } catch (err) {
+    console.error(`Error while getting all purchases`, err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Get all purchases by buyer
+const getAllPurchasesOfBuyer = async (req, res) => {
+  try {
+    const buyerId = req.params.id;
+    const purchases = await purchaseService.getAllPurchasesOfBuyer(buyerId);
+    if (!purchases) {
+      return res.status(404).json({ message: "Buyer purchases not found" });
+    }
+    res.json(purchases);
+  } catch (err) {
+    console.error(`Error while getting purchases`, err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = {
+  createPurchase,
+  getPurchaseById,
+  getAllPurchases,
+  getAllPurchasesOfBuyer,
+};

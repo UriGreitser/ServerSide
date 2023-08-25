@@ -1,23 +1,53 @@
-// const PurchaseSchema = require('../models/purchase');
-const {Purchase} = require('../models/purchase');
+const { Purchase } = require("../models/purchase");
 
-const createPurchase = async (purchaseData,buyer) => {
+// Purchases CRUD
+
+// Create
+const createPurchase = async (buyerId, itemsIds, total) => {
+  const currentUtcTime = new Date();
+  const newPurchase = new Purchase({
+    buyer: buyerId,
+    items: itemsIds,
+    total: total,
+    purchaseDate: currentUtcTime,
+  });
+  await newPurchase.save();
+  return newPurchase;
+};
+
+// Get purchases
+const getPurchaseById = async (_id) => {
   try {
-    date = new Date()
-    items = purchaseData.items
-    total = purchaseData.total
-    console.log("TEST 2!@#$!@$!#$ ")
-    console.log(buyer)
-
-    const purchase = new Purchase({date,buyer,items,total});
-    await purchase.save();
+    const purchase = await Purchase.findOne({ _id }); // Find an purchase by id using the appropriate method
     return purchase;
-    // const item1 = new Item({title,description, price, img});
-    // await item1.save();
-  } catch (error) {
-    throw new Error("Error creating purchase: " + error.message);
+  } catch (err) {
+    throw new Error(`Error while retrieving purchase by id: ${err.message}`);
   }
 };
 
+// Get all purchses
+const getAllPurchases = async () => {
+  try {
+    const purchases = await Purchase.find();
+    return purchases;
+  } catch (err) {
+    throw new Error(`Error while retrieving all purchases: ${err.message}`);
+  }
+};
 
-module.exports = {createPurchase}
+// Get by buyer
+const getAllPurchasesOfBuyer = async (buyerId) => {
+  try {
+    const buyerPurchases = await Purchase.find({ buyer: buyerId });
+    return buyerPurchases;
+  } catch (err) {
+    throw new Error(`Error while retrieving buyer purchases: ${err.message}`);
+  }
+};
+
+module.exports = {
+  createPurchase,
+  getPurchaseById,
+  getAllPurchases,
+  getAllPurchasesOfBuyer,
+};
