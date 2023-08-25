@@ -62,9 +62,23 @@ const getAllPurchasesOfBuyer = async (req, res) => {
   }
 };
 
+const getPurchaseCount = async (req, res) => {
+  try {
+    const purchasesCount = await purchaseService.getPurchaseCount();
+    if (!purchasesCount) {
+      return res.status(404).json({ message: "Purchases count not found" });
+    }
+    res.json(purchasesCount);
+  } catch (err) {
+    console.error(`Error while getting purchases count`, err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   createPurchase,
   getPurchaseById,
   getAllPurchases,
   getAllPurchasesOfBuyer,
+  getPurchaseCount,
 };
