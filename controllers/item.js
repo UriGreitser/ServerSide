@@ -35,13 +35,8 @@ const getItemById = async (req, res) => {
 //get request - get by title.
 const getItemByTitle = async (req, res) => {
   try {
-    console.log(req.params)
-    console.log(req.params.title)
-    console.log(req.title)
     const itemTitle = req.params.title;
-    console.log(itemTitle);
     const item = await itemService.getItemByTitle(itemTitle);
-    console.log(item);
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }
