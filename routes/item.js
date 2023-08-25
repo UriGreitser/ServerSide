@@ -17,7 +17,7 @@ const router = express.Router();
 router.post("/", itemController.createItem);
 /**
  * @swagger
- * /item/:
+ * /items/:
  *   get:
  *     summary: Get all items
  *     responses:
@@ -29,7 +29,7 @@ router.post("/", itemController.createItem);
 router.get("/", itemController.getAllItems);
 /**
  * @swagger
- * /item/:id:
+ * /items/:id:
  *   get:
  *     summary: Get item by id
  *     responses:
@@ -38,7 +38,7 @@ router.get("/", itemController.getAllItems);
  *     tags:
  *       - Item
  */
-router.get("/:id", itemController.getItemById);
+router.get("/:title", itemController.getItemByTitle);
 /**
  * @swagger
  * /item/title/:title:

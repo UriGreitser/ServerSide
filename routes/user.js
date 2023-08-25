@@ -14,7 +14,7 @@ const router = express.Router();
  *     tags:
  *       - User
  */
-router.post("/", userController.createUsers);
+router.post("/", userController.createUser);
 /**
  * @swagger
  * /user/login/:
@@ -51,5 +51,44 @@ router.put("/change-password", userController.changePassword);
  *       - User
  */
 router.delete("/delete", userController.deleteUser);
+
+/**
+ * @swagger
+ * /user/cart/:username:
+ *   get:
+ *     summary: Get cart by user
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.get("/cart/:username", userController.getUserCart);
+
+/**
+ * @swagger
+ * /user/cart/:
+ *   post:
+ *     summary: Add item to user's cart
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.post("/cart", userController.addToUserCart);
+
+/**
+ * @swagger
+ * /user/count:
+ *   get:
+ *     summary: Get the number of users
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.get("/count", userController.getUserCount);
 
 module.exports = router;

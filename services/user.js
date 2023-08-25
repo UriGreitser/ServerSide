@@ -1,71 +1,87 @@
-const {User} = require('../models/user');
+const { default: mongoose } = require("mongoose");
+const { User } = require("../models/user");
 
-async function createUser(username, password, isManager) {
-    try {
-      id = username
-      const newUser = new User({
-        _id: username,
-        username,
-        password,
-        isManager
-      });
-  
-      await newUser.save();
-      
-      return newUser;
-    } catch (error) {
-      throw new Error('An error occurred while creating the user');
-    }
-  }
-  
+const createUser = async (username, password, isManager) => {
+  try {
+    const newUser = new User({
+      _id: new mongoose.Types.ObjectId(),
+      username,
+      password,
+      isManager,
+    });
 
-  const createUsers = async (username,password,isManager) => {
-    try {
-      const newUser = new User({
-        _id: username,
-        username,
-        password,
-        isManager,
-      });
-  
-      await newUser.save();
-  
-      return newUser;
-    } catch (error) {
-      throw new Error('An error occurred while creating the user');
-    }
-  };
-  
-  async function findUserByUsername(username) {
-    return User.findOne({ username });
+    await newUser.save();
+
+    return newUser;
+  } catch (error) {
+    throw new Error("An error occurred while creating the user");
   }
-  
-  async function verifyPassword(user, password) {
-    return user && user.password === password;
+};
+
+async function findUserByUsername(username) {
+  return User.findOne({ username });
+}
+
+async function verifyPassword(user, password) {
+  return user && user.password === password;
+}
+
+async function changePassword(username, newPassword) {
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    throw new Error("User not found");
   }
 
-  async function changePassword(username, newPassword) {
+  user.password = newPassword;
+  await user.save();
+
+  return user;
+}
+async function deleteUser(username) {
+  const deletedUser = await User.findOneAndDelete({ username });
+
+  if (!deletedUser) {
+    throw new Error("User not found");
+  }
+
+  return deletedUser;
+}
+
+async function getUserCart(username) {
+  const user = await User.findOne({ username });
+  const userCart = user.cart;
+
+  return userCart;
+}
+
+async function addToUserCart(username, itemId) {
+  try {
     const user = await User.findOne({ username });
-  
-    if (!user) {
-      throw new Error('User not found');
-    }
-  
-    user.password = newPassword;
-    await user.save();
-  
-    return user;
-  }
-  async function deleteUser(username) {
-    const deletedUser = await User.findOneAndDelete({ username });
-  
-    if (!deletedUser) {
-      throw new Error('User not found');
-    }
-  
-    return deletedUser;
-  }
+    userCart = user.cart;
+    itemObjectId = new mongoose.Types.ObjectId(itemId);
+    userCart.push(itemObjectId);
+    user.save();
 
-  module.exports = {
-    createUser,createUsers,findUserByUsername,verifyPassword,changePassword,deleteUser
-  };
+    return userCart;
+  } catch (error) {
+    throw new Error("An error occurred while adding item to the user's cart");
+  }
+}
+
+async function getUserCount() {
+  const userCount = await User.countDocuments();
+
+  return userCount;
+}
+
+module.exports = {
+  createUser,
+  findUserByUsername,
+  verifyPassword,
+  changePassword,
+  deleteUser,
+  getUserCart,
+  addToUserCart,
+  getUserCount,
+};
