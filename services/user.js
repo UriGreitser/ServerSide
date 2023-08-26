@@ -104,7 +104,7 @@ async function addPurchase(username, purchaseId) {
     userPurchases.push(purchaseObjectId);
     user.save();
 
-    return userCart;
+    return userPurchases;
   } catch (error) {
     throw new Error(
       "An error occurred while adding purchase to the user's purchases"
