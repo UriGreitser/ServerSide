@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 // Purchases CRUD
 
 // Create
-const createPurchase = async (address, buyerId, itemsIds, total) => {
+const createPurchase = async (address, username, itemsIds, total) => {
   const currentUtcTime = new Date();
   const newPurchase = new Purchase({
     _id: new mongoose.Types.ObjectId(),
     address: address,
-    buyer: new mongoose.Types.ObjectId(buyerId),
+    buyer: username,
     items: itemsIds.map((id) => new mongoose.Types.ObjectId(id)),
     total: total,
     purchaseDate: currentUtcTime,

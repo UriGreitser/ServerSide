@@ -18,7 +18,7 @@ const PurchaseSchema = new Schema(
       default: Date.now,
     },
     buyer: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "User",
     },
     items: {
