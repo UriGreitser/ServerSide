@@ -69,6 +69,33 @@ async function addToUserCart(username, itemId) {
   }
 }
 
+async function deleteFromUserCart(username, itemIds) {
+  try {
+    const user = await User.findOne({ username });
+    let userCart = user.cart; // Assign user's cart to a mutable variable
+
+    // Filter out items that are in itemIds from userCart
+    userCart = userCart.filter((itemId) => {
+      const itemStringId = itemId.toString();
+      const index = itemIds.indexOf(itemStringId);
+      if (index !== -1) {
+        itemIds.splice(index, 1); // Remove the item ID from itemIds
+        return false; // Remove the item from userCart
+      }
+      return true; // Keep the item in userCart
+    });
+
+    user.cart = userCart; // Assign the updated userCart back to the user
+    await user.save(); // Save the user document to persist the changes
+
+    return userCart;
+  } catch (error) {
+    throw new Error(
+      "An error occurred while removing an item from the user's cart"
+    );
+  }
+}
+
 async function addPurchase(username, purchaseId) {
   try {
     const user = await User.findOne({ username });
@@ -97,6 +124,7 @@ module.exports = {
   verifyPassword,
   changePassword,
   deleteUser,
+  deleteFromUserCart,
   getUserCart,
   addToUserCart,
   addPurchase,
