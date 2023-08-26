@@ -1,9 +1,13 @@
 const express = require("express");
 const app = express();
+const socketIo = require("socket.io");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger"); // Path to your swagger.js configuration
+const http = require("http");
+
+const server = http.createServer(app);
 const io = socketIo(server);
 
 app.use(bodyParser.urlencoded({ extended: true }));
