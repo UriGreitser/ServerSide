@@ -35,6 +35,17 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getUserByUsername = async (req, res) => {
+  try {
+    const username1 = req.params.username;
+    const user = await userService.findUserByUsername(username1);
+    res.json(user);
+  } catch (error) {
+    console.error(`Error while getting user`, error.message);
+    res.status(500).json({ error: "An error occurred while getting user" });
+  }
+};
+
 const changePassword = async (req, res) => {
   try {
     const { username, newPassword } = req.body;
@@ -137,5 +148,6 @@ module.exports = {
   addToUserCart,
   deleteFromUserCart,
   addPurchase,
+  getUserByUsername,
   getUserCount,
 };
