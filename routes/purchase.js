@@ -79,7 +79,7 @@ router.get("/earningsPerDate", purchaseController.getEarningsPerDate);
 router.get("/purchaseById/:id", purchaseController.getPurchaseById);
 /**
  * @swagger
- * /purchase/purchaseByBuyer/:buyerId:
+ * /purchase/buyerId/:id:
  *   get:
  *     summary: Get all purchases by buyer id
  *     responses:
@@ -88,8 +88,6 @@ router.get("/purchaseById/:id", purchaseController.getPurchaseById);
  *     tags:
  *       - Purchase
  */
-router.get(
-  "/purchaseByBuyer/:buyerId",
-  purchaseController.getAllPurchasesOfBuyer
-);
+router.get("/buyerId/:id", purchaseController.getAllPurchasesOfBuyer);
+
 module.exports = router;
