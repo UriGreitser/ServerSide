@@ -103,7 +103,6 @@ const getFilteredItems = async (req, res, next) => {
     const items = itemService.getFilteredItems(color, size, minPrice, maxPrice);
 
     res.json(items);
-    console.log(res.json(items));
   } catch (err) {
     console.error(`Error while retrieving filtered items`, err.message);
     res.status(500).json({ message: "Internal server error" });
