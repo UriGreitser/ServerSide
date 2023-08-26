@@ -89,7 +89,7 @@ router.post("/cart", userController.addToUserCart);
  *     tags:
  *       - User
  */
-router.post("/purchase", userController.addToUserCart);
+router.post("/purchase", userController.addPurchase);
 
 /**
  * @swagger
