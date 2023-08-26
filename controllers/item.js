@@ -96,19 +96,12 @@ const getItemsByPriceRange = async (req, res) => {
 };
 
 //get filtered items
-const getFilteredItems = async (req, res) => {
-  const minPrice = parseFloat(req.params.min);
-  const maxPrice = parseFloat(req.params.max);
-  const colorFilter = req.query.color || "";
-  const sizeFilter = req.query.size || "";
-
+const getFilteredItems = async (req, res, next) => {
   try {
-    const items = await itemService.getFilteredItems(
-      minPrice,
-      maxPrice,
-      colorFilter,
-      sizeFilter
-    );
+    const { color, size, minPrice, maxPrice } = req.query;
+
+    const items = itemService.getFilteredItems(color, size, minPrice, maxPrice);
+
     res.json(items);
   } catch (err) {
     console.error(`Error while retrieving filtered items`, err.message);

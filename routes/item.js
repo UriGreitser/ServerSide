@@ -29,7 +29,19 @@ router.post("/", itemController.createItem);
 router.get("/", itemController.getAllItems);
 /**
  * @swagger
- * /item/:id:
+ * /item/filtered:
+ *   get:
+ *     summary: Get filtered items
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/filtered", itemController.getFilteredItems);
+/**
+ * @swagger
+ * /item/byId/:id:
  *   get:
  *     summary: Get item by id
  *     responses:
@@ -38,7 +50,7 @@ router.get("/", itemController.getAllItems);
  *     tags:
  *       - Item
  */
-router.get("/:id", itemController.getItemById);
+router.get("byId/:id", itemController.getItemById);
 /**
  * @swagger
  * /item/title/:title:
@@ -87,17 +99,5 @@ router.delete("/:title", itemController.deleteItemByTitle);
  *       - Item
  */
 router.get("/price/:min/:max", itemController.getItemsByPriceRange);
-/**
- * @swagger
- * /item/price/:min/:max:
- *   get:
- *     summary: Get filtered items
- *     responses:
- *       200:
- *         description: Successful response
- *     tags:
- *       - Item
- */
-router.get("/item/price/:min/:max", itemController.getFilteredItems);
 
 module.exports = router;

@@ -76,23 +76,36 @@ const getItemsByIds = async (itemIds) => {
   }
 };
 
-const getFilteredItems = async (
-  minPrice,
-  maxPrice,
-  colorFilter,
-  sizeFilter
-) => {
+const getFilteredItems = async (color, size, minPrice, maxPrice) => {
   try {
-    const filteredItems = await Item.find({
-      price: { $gte: minPrice, $lte: maxPrice },
-      color: { $regex: colorFilter, $options: "i" },
-      size: { $regex: sizeFilter, $options: "i" },
-    });
+    const filtersItems = {
+      $and: [],
+    };
 
-    res.json(filteredItems);
+    if (color) {
+      filtersItems.$and.push({ "stock.color": color });
+    }
+
+    if (size) {
+      filtersItems.$and.push({ "stock.size": size });
+    }
+
+    if (!isNaN(minPrice) || !isNaN(maxPrice)) {
+      const priceFilter = {};
+      if (!isNaN(minPrice)) {
+        priceFilter.$gte = parseFloat(minPrice);
+      }
+
+      if (!isNaN(maxPrice)) {
+        priceFilter.$lte = parseFloat(maxPrice);
+      }
+      filtersItems.$and.push({ price: priceFilter });
+    }
+
+    const filteredItems = await Item.find(filtersItems);
+    return filteredItems;
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    throw new Error("Error filtering");
   }
 };
 
