@@ -1,10 +1,9 @@
 const { Item } = require("../models/item");
 
-const createItem = async (title, description, price, img, stock) => {
-  const item1 = new Item({ title, description, price, img, stock });
-  // item1._id = title
-  await item1.save();
-  return item1;
+const createItem = async (title, description, price, img, size, color) => {
+  const item = new Item({ title, description, price, img, size, color });
+  await item.save();
+  return item;
 };
 
 const getItemById = async (_id) => {
@@ -76,6 +75,8 @@ const getItemsByIds = async (itemIds) => {
     throw new Error("Error fetching items: " + error.message);
   }
 };
+
+//const getCatalogItems = async()
 
 module.exports = {
   createItem,

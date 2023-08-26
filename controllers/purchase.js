@@ -7,7 +7,7 @@ const createPurchase = async (req, res) => {
   try {
     res.json(
       await purchaseService.createPurchase(
-        req.body.title,
+        req.body.address,
         req.body.buyer,
         req.body.items,
         req.body.total

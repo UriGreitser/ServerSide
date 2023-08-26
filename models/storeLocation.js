@@ -4,7 +4,10 @@ const { Schema } = mongoose;
 
 const StoreLocationSchema = new Schema(
   {
-    _id: Schema.Types.UUID,
+    _id: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "can't be blank"],
+    },
     address: {
       type: String,
       required: [true, "can't be blank"],

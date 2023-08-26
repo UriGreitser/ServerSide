@@ -4,6 +4,14 @@ const { Schema } = mongoose;
 
 const PurchaseSchema = new Schema(
   {
+    _id: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "can't be blank"],
+    },
+    address: {
+      type: String,
+      required: [true, "can't be blank"],
+    },
     purchaseDate: {
       type: Date,
       required: [true, "can't be blank"],
