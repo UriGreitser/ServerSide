@@ -21,7 +21,7 @@ const createPurchase = async (address, buyerId, itemsIds, total) => {
 // Get purchases
 const getPurchaseById = async (_id) => {
   try {
-    const purchase = await Purchase.findOne({ _id }); // Find an purchase by id using the appropriate method
+    const purchase = await Purchase.findOne({ _id });
     return purchase;
   } catch (err) {
     throw new Error(`Error while retrieving purchase by id: ${err.message}`);
@@ -54,10 +54,60 @@ async function getPurchaseCount() {
   return purchaseCount;
 }
 
+// Get chart of purchases per date
+const getPurchasesPerDate = async () => {
+  try {
+    const purchases = await Purchase.aggregate([
+      {
+        $addFields: {
+          formattedDate: {
+            $dateToString: { format: "%Y-%m-%d", date: "$purchaseDate" },
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$formattedDate",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+    ]);
+
+    return purchases;
+  } catch (err) {
+    throw new Error(
+      `Error while retrieving prurchase per date: ${err.message}`
+    );
+  }
+};
+
+// Get chart of earnings per date
+const getEarningsPerDate = async () => {
+  try {
+    const earnings = await Purchase.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$purchaseDate" } },
+          totalEarnings: { $sum: "$total" },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+    return earnings;
+  } catch (err) {
+    throw new Error(`Error while retrieving earnings per date: ${err.message}`);
+  }
+};
+
 module.exports = {
   createPurchase,
   getPurchaseById,
   getAllPurchases,
   getAllPurchasesOfBuyer,
   getPurchaseCount,
+  getPurchasesPerDate,
+  getEarningsPerDate,
 };

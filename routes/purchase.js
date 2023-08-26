@@ -42,7 +42,32 @@ router.get("/count", purchaseController.getPurchaseCount);
 
 /**
  * @swagger
- * /purchase/:id:
+ * /purchase/purchaseCountPerDate:
+ *   get:
+ *     summary: Get purchases per date
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Purchase
+ */
+router.get("/purchaseCountPerDate", purchaseController.getPurchasesPerDate);
+
+/**
+ * @swagger
+ * /purchase/earningsPerDate:
+ *   get:
+ *     summary: Get earnings per date
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Purchase
+ */
+router.get("/earningsPerDate", purchaseController.getEarningsPerDate);
+/**
+ * @swagger
+ * /purchase/purchaseById/:id:
  *   get:
  *     summary: Get purchase by id
  *     responses:
@@ -51,10 +76,10 @@ router.get("/count", purchaseController.getPurchaseCount);
  *     tags:
  *       - Purchase
  */
-router.get("/:id", purchaseController.getPurchaseById);
+router.get("/purchaseById/:id", purchaseController.getPurchaseById);
 /**
  * @swagger
- * /purchase/:buyerId:
+ * /purchase/purchaseByBuyer/:buyerId:
  *   get:
  *     summary: Get all purchases by buyer id
  *     responses:
@@ -63,5 +88,8 @@ router.get("/:id", purchaseController.getPurchaseById);
  *     tags:
  *       - Purchase
  */
-router.get("/:buyerId", purchaseController.getAllPurchasesOfBuyer);
+router.get(
+  "/purchaseByBuyer/:buyerId",
+  purchaseController.getAllPurchasesOfBuyer
+);
 module.exports = router;
