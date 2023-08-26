@@ -18,6 +18,35 @@ const createPurchase = async (req, res) => {
   }
 };
 
+const getPurchasesPerDate = async (req, res) => {
+  try {
+    const purchasesPerDate = await purchaseService.getPurchasesPerDate();
+    if (!purchasesPerDate) {
+      return res.status(404).json({ message: "Purchases count not found" });
+    }
+    res.json(purchasesPerDate);
+  } catch (err) {
+    console.error(`Error while getting purchases per date`, err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const getEarningsPerDate = async (req, res) => {
+  try {
+    const earningsPerDate = await purchaseService.getEarningsPerDate();
+    if (!earningsPerDate) {
+      return res.status(404).json({ message: "Purchases earnings not found" });
+    }
+    res.json(earningsPerDate);
+  } catch (err) {
+    console.error(
+      `Error while getting purchases earnings per date data`,
+      err.message
+    );
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // Get purchase by id
 const getPurchaseById = async (req, res) => {
   try {
@@ -81,4 +110,6 @@ module.exports = {
   getAllPurchases,
   getAllPurchasesOfBuyer,
   getPurchaseCount,
+  getPurchasesPerDate,
+  getEarningsPerDate,
 };
