@@ -15,5 +15,7 @@ const router = express.Router();
  *       - StoreLocation
  */
 router.get("/", storelocationController.getAllStoreLocations);
+router.get("/facebook", storelocationController.getAllComments);
+
 
 module.exports = router;
