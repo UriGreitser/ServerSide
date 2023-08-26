@@ -80,6 +80,19 @@ router.post("/cart", userController.addToUserCart);
 
 /**
  * @swagger
+ * /user/cart/:
+ *   delete:
+ *     summary: Delete item from user's cart
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.delete("/cart", userController.deleteFromUserCart);
+
+/**
+ * @swagger
  * /user/purchase/:
  *   post:
  *     summary: Add purchase to user's purchases

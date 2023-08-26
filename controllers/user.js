@@ -90,6 +90,19 @@ const addToUserCart = async (req, res) => {
   }
 };
 
+const deleteFromUserCart = async (req, res) => {
+  try {
+    const { username, itemIds } = req.body;
+    const userCart = await userService.deleteFromUserCart(username, itemIds);
+    res.json(userCart);
+  } catch (error) {
+    console.error(`Error while getting user's cart`, error.message);
+    res
+      .status(500)
+      .json({ error: "An error occurred while getting user's cart" });
+  }
+};
+
 const addPurchase = async (req, res) => {
   try {
     const { username, purchaseId } = req.body;
@@ -122,6 +135,7 @@ module.exports = {
   deleteUser,
   getUserCart,
   addToUserCart,
+  deleteFromUserCart,
   addPurchase,
   getUserCount,
 };
