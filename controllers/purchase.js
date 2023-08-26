@@ -1,4 +1,5 @@
 const purchaseService = require("../services/purchase.js");
+const { io } = require("../app");
 
 // Purchase Controller
 
@@ -13,6 +14,8 @@ const createPurchase = async (req, res) => {
         req.body.total
       )
     );
+    const itemsIds = req.body.items;
+    io.emit("stockChange", { itemsIds });
   } catch (err) {
     console.error(`Error while creating purchase`, err.message);
   }

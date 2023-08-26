@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger"); // Path to your swagger.js configuration
+const io = socketIo(server);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -16,7 +17,6 @@ app.use(cors());
 
 const customEnv = require("custom-env");
 customEnv.env(process.env.NODE_ENV, "./config");
-console.log(process.env.CONNECTION_STRING);
 // mongoose.connect(process.env.CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true})
 
 db = {
@@ -32,6 +32,10 @@ app.use(express.static("public"));
 // app.use(cookieParser());
 app.set("view engine", "ejs");
 // app.use('/articles', routerArticles);
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+});
 
 const Items = require("./routes/item.js");
 app.use("/item", Items);
