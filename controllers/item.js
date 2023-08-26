@@ -3,7 +3,6 @@ const itemService = require("../services/item.js");
 //post request - create item
 const createItem = async (req, res) => {
   try {
-    console.log("TESTING")
     res.json(
       await itemService.createItem(
         req.body.title,
@@ -18,10 +17,9 @@ const createItem = async (req, res) => {
   }
 };
 
-//not in use
 const getItemById = async (req, res) => {
   try {
-    const itemId = req.params.id; // Assuming you're passing the item ID as a parameter in the URL
+    const itemId = req.params.id;
     const item = await itemService.getItemById(itemId);
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
