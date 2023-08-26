@@ -29,6 +29,18 @@ router.post("/", userController.createUser);
 router.post("/login", userController.loginUser);
 /**
  * @swagger
+ * /user/:username:
+ *   Get:
+ *     summary: getUserByUsename
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.get("/:username", userController.getUserByUsername);
+/**
+ * @swagger
  * /user/change-password:
  *   put:
  *     summary: Change password
