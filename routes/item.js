@@ -87,5 +87,17 @@ router.delete("/:title", itemController.deleteItemByTitle);
  *       - Item
  */
 router.get("/price/:min/:max", itemController.getItemsByPriceRange);
+/**
+ * @swagger
+ * /item/price/:min/:max:
+ *   get:
+ *     summary: Get filtered items
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Item
+ */
+router.get("/item/price/:min/:max", itemController.getFilteredItems);
 
 module.exports = router;
