@@ -1,5 +1,10 @@
 const purchaseService = require("../services/purchase.js");
-const { io } = require("../app5.js");
+
+const express = require("express");
+const http = require("http");
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
 
 // Purchase Controller
 
@@ -15,7 +20,10 @@ const createPurchase = async (req, res) => {
       )
     );
     const itemsIds = req.body.items;
+    // Access the globally set io instance from app.js
+    const io = req.app.get("socketio");
     io.emit("stockChange", { itemsIds });
+    res.status(201).json({ success: true, message: "Purchase created" });
   } catch (err) {
     console.error(`Error while creating purchase`, err.message);
   }

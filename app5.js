@@ -1,14 +1,17 @@
+// Express
 const express = require("express");
 const app = express();
-const socketIo = require("socket.io");
+// DB
 const mongoose = require("mongoose");
+// Parser
 const bodyParser = require("body-parser");
+// Swagger
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger"); // Path to your swagger.js configuration
+const swaggerSpec = require("./swagger");
+// SocketIO
 const http = require("http");
-
+const socketIO = require("socket.io");
 const server = http.createServer(app);
-const io = socketIo(server);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,8 +40,18 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 // app.use('/articles', routerArticles);
 
+// Socket IO
+const io = socketIO(server);
+// Make the io instance globally accessible
+app.set("socketio", io);
+// New connections
 io.on("connection", (socket) => {
   console.log("A user connected");
+
+  // Disconnection
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
 });
 
 const Items = require("./routes/item.js");
