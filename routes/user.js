@@ -80,6 +80,19 @@ router.post("/cart", userController.addToUserCart);
 
 /**
  * @swagger
+ * /user/purchase/:
+ *   post:
+ *     summary: Add purchase to user's purchases
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - User
+ */
+router.post("/purchase", userController.addToUserCart);
+
+/**
+ * @swagger
  * /user/count:
  *   get:
  *     summary: Get the number of users

@@ -9,7 +9,8 @@ const createItem = async (req, res) => {
         req.body.description,
         req.body.price,
         req.body.img,
-        req.body.stock
+        req.body.size,
+        req.body.color
       )
     );
   } catch (err) {
