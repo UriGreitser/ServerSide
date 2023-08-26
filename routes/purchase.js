@@ -29,6 +29,19 @@ router.post("/", purchaseController.createPurchase);
 router.get("/", purchaseController.getAllPurchases);
 /**
  * @swagger
+ * /purchase/count:
+ *   get:
+ *     summary: Get purchases count
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *     tags:
+ *       - Purchase
+ */
+router.get("/count", purchaseController.getPurchaseCount);
+
+/**
+ * @swagger
  * /purchase/:id:
  *   get:
  *     summary: Get purchase by id
@@ -51,17 +64,4 @@ router.get("/:id", purchaseController.getPurchaseById);
  *       - Purchase
  */
 router.get("/:buyerId", purchaseController.getAllPurchasesOfBuyer);
-/**
- * @swagger
- * /purchase/count:
- *   get:
- *     summary: Get purchases count by buyer id
- *     responses:
- *       200:
- *         description: Successful response
- *     tags:
- *       - Purchase
- */
-router.get("/count", purchaseController.getPurchaseCount);
-
 module.exports = router;
