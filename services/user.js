@@ -69,6 +69,22 @@ async function addToUserCart(username, itemId) {
   }
 }
 
+async function addPurchase(username, purchaseId) {
+  try {
+    const user = await User.findOne({ username });
+    userPurchases = user.purchases;
+    purchaseObjectId = new mongoose.Types.ObjectId(purchaseId);
+    userPurchases.push(purchaseObjectId);
+    user.save();
+
+    return userCart;
+  } catch (error) {
+    throw new Error(
+      "An error occurred while adding purchase to the user's purchases"
+    );
+  }
+}
+
 async function getUserCount() {
   const userCount = await User.countDocuments();
 
@@ -83,5 +99,6 @@ module.exports = {
   deleteUser,
   getUserCart,
   addToUserCart,
+  addPurchase,
   getUserCount,
 };

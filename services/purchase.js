@@ -1,13 +1,16 @@
 const { Purchase } = require("../models/purchase");
+const mongoose = require("mongoose");
 
 // Purchases CRUD
 
 // Create
-const createPurchase = async (buyerId, itemsIds, total) => {
+const createPurchase = async (address, buyerId, itemsIds, total) => {
   const currentUtcTime = new Date();
   const newPurchase = new Purchase({
-    buyer: buyerId,
-    items: itemsIds,
+    _id: new mongoose.Types.ObjectId(),
+    address: address,
+    buyer: new mongoose.Types.ObjectId(buyerId),
+    items: itemsIds.map((id) => new mongoose.Types.ObjectId(id)),
     total: total,
     purchaseDate: currentUtcTime,
   });
