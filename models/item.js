@@ -7,7 +7,6 @@ const ItemSchema = new Schema(
     title: {
       type: String,
       required: [true, "can't be blank"],
-      unique: true,
     },
     description: {
       type: String,
