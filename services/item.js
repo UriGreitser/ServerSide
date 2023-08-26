@@ -76,7 +76,25 @@ const getItemsByIds = async (itemIds) => {
   }
 };
 
-//const getCatalogItems = async()
+const getFilteredItems = async (
+  minPrice,
+  maxPrice,
+  colorFilter,
+  sizeFilter
+) => {
+  try {
+    const filteredItems = await Item.find({
+      price: { $gte: minPrice, $lte: maxPrice },
+      color: { $regex: colorFilter, $options: "i" },
+      size: { $regex: sizeFilter, $options: "i" },
+    });
+
+    res.json(filteredItems);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 module.exports = {
   createItem,
@@ -87,4 +105,5 @@ module.exports = {
   getItemsByPriceRange,
   getItemsByIds,
   getItemById,
+  getFilteredItems,
 };
