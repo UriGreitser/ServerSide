@@ -17,7 +17,7 @@ const router = express.Router();
 router.post("/", itemController.createItem);
 /**
  * @swagger
- * /item/:
+ * /items/:
  *   get:
  *     summary: Get all items
  *     responses:

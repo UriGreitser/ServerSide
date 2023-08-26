@@ -45,9 +45,16 @@ const getAllPurchasesOfBuyer = async (buyerId) => {
   }
 };
 
+async function getPurchaseCount() {
+  const userCount = await User.countDocuments();
+
+  return userCount;
+}
+
 module.exports = {
   createPurchase,
   getPurchaseById,
   getAllPurchases,
   getAllPurchasesOfBuyer,
+  getPurchaseCount,
 };
